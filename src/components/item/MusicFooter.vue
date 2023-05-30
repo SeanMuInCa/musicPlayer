@@ -1,0 +1,159 @@
+<template>
+	<div class="musicFooter">
+		<div class="avatar">
+            <img :src="currentPlayList[currentIndex].al.picUrl" ref="img">
+        </div>
+		<div class="info">
+            <div class="text">
+                <p class="name">{{ currentPlayList[currentIndex].name }}</p>
+                <p class="msg">横划可以切换歌曲</p>
+            </div>
+        </div>
+		<div class="play" >
+			<svg class="icon" aria-hidden="true" @click="playMusic" v-if="isPause">
+				<use xlink:href="#icon-playcircle-fill"></use>
+			</svg>
+			<svg class="icon" aria-hidden="true" @click="playMusic" v-else>
+				<use xlink:href="#icon-zanting"></use>
+			</svg>
+		</div>
+		<div class="menu">
+            <svg class="icon" aria-hidden="true">
+				<use xlink:href="#icon-caidan"></use>
+			</svg>
+        </div>
+        <audio ref="player" :src="`https://music.163.com/song/media/outer/url?id=${currentPlayList[currentIndex].id}.mp3`"></audio>
+	</div>
+</template>
+
+<script>
+import { ref,onMounted, getCurrentInstance } from 'vue';
+import { mapMutations, mapState } from 'vuex';
+
+	// import { inject } from 'vue'
+	export default {
+		name: "MusicFooter",
+		setup() {
+            // let isPlay = ref(false)//考虑到以后也要用，这个值我放到vuex里了
+            // const player = ref(null)//vue3中拿节点
+            // onMounted(() => {
+            //     console.log(player);
+            // })
+            
+            return{
+                // isPlay
+            }
+        },
+        methods:{
+            playMusic(){
+                if(this.$refs.player.paused){
+                    this.$refs.player.play()
+                    this.$refs.img.className = 'circle'
+                    this.updatePlayerStatus(false)
+                }
+                else{
+                    this.$refs.player.pause()
+                    this.updatePlayerStatus(true)
+                    this.$refs.img.className = 'avatar'
+                }
+                // this.isPlay = true
+            },
+            
+            ...mapMutations(['updatePlayerStatus'])
+        },
+        mounted() {
+            console.log(this.$refs);
+        },
+			// let state = inject('state')
+        computed:{
+            ...mapState(['currentPlayList', 'currentIndex','isPause']),
+            
+        },
+        watch:{
+            currentIndex(){
+                if(!this.isPause){
+                    this.$refs.player.autoplay = true
+                    this.updatePlayerStatus(false)
+                }else this.$refs.player.autoplay = false
+                    
+            }
+        }
+            
+		
+	};
+</script>
+
+<style lang="less" scoped>
+@keyframes circle{
+        0%{
+            /*transform对元素进行旋转、缩放、移动或倾斜。以下就是旋转0度。*/
+            transform: rotate(0deg);
+        }
+        100%{
+            /*以下就是旋转360度*/
+            transform: rotate(360deg);
+        }
+    }
+	.musicFooter {
+		width: 100%;
+		height: 1.2rem;
+		background-color: #fff;
+        border-top: 1px solid #999;
+		position: fixed;
+		bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: space-between;
+        .icon{
+            width: .6rem;
+            height: .6rem;
+        }
+        .avatar{
+            width: 25%;
+            height: 100%;
+            // background-color: black;
+            flex: .5;
+            
+            // margin-top: .6rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            img{
+                
+                width: .6rem;
+                height: .6rem;
+                border-radius: 50%;
+                transform: rotate(720deg);
+            }
+            .circle{
+                animation: circle 6s infinite linear;
+            }
+        }
+        .info{
+            flex: 2;
+            height: 100%;
+            // background-color: orange;
+            display: flex;
+            align-items: center;
+
+            .name{
+                font-size: .3rem;
+                font-weight: 700;
+            }
+            .msg{
+                color: #999;
+            }
+        }
+        .play,.pause{
+            flex: .5;
+            text-align: right;
+        }
+        .menu{
+            flex: .5;
+            text-align: right;
+
+        }
+	}
+</style>
