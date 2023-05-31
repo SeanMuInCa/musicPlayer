@@ -1,13 +1,21 @@
 <template>
 	<div class="musicFooter">
-		<div class="avatar">
+
+        <van-popup v-model:show="detailShow" :style="{ width:'100%',height:'100%' }" position="bottom" >
+        <MusicDetail></MusicDetail>
+        </van-popup>
+        
+        
+		<div class="avatar" @click="updateDetailShow">
             <img :src="currentPlayList[currentIndex].al.picUrl" ref="img">
         </div>
-		<div class="info">
+		<div class="info" @click="updateDetailShow">
+            
             <div class="text">
                 <p class="name">{{ currentPlayList[currentIndex].name }}</p>
                 <p class="msg">横划可以切换歌曲</p>
             </div>
+            
         </div>
 		<div class="play" >
 			<svg class="icon" aria-hidden="true" @click="playMusic" v-if="isPause">
@@ -29,19 +37,34 @@
 <script>
 import { ref,onMounted, getCurrentInstance } from 'vue';
 import { mapMutations, mapState } from 'vuex';
-
+import MusicDetail from './MusicDetail.vue'
 	// import { inject } from 'vue'
 	export default {
 		name: "MusicFooter",
+        components:{MusicDetail},
 		setup() {
+            // let show = ref(false)
+            // console.log(show);
             // let isPlay = ref(false)//考虑到以后也要用，这个值我放到vuex里了
             // const player = ref(null)//vue3中拿节点
             // onMounted(() => {
             //     console.log(player);
             // })
-            
+            const show = ref(false);
+    const showPopup = () => {
+      show.value = true;
+    };
+    return {
+      show,
+      showPopup,
+    };
+            const onClickOverlay = () => {
+                console.log(1);
+                
+            }
             return{
                 // isPlay
+                onClickOverlay
             }
         },
         methods:{
@@ -54,20 +77,22 @@ import { mapMutations, mapState } from 'vuex';
                 else{
                     this.$refs.player.pause()
                     this.updatePlayerStatus(true)
-                    this.$refs.img.className = 'avatar'
+                    this.$refs.img.className = 'pause'
                 }
                 // this.isPlay = true
             },
             
-            ...mapMutations(['updatePlayerStatus'])
+            ...mapMutations(['updatePlayerStatus','updateDetailShow'])
         },
         mounted() {
             console.log(this.$refs);
         },
 			// let state = inject('state')
         computed:{
-            ...mapState(['currentPlayList', 'currentIndex','isPause']),
-            
+            ...mapState(['currentPlayList', 'currentIndex','isPause','detailShow']),
+            show(){
+                return this.detailShow
+            }
         },
         watch:{
             currentIndex(){
@@ -75,10 +100,12 @@ import { mapMutations, mapState } from 'vuex';
                     this.$refs.player.autoplay = true
                     this.updatePlayerStatus(false)
                 }else this.$refs.player.autoplay = false
-                    
-            }
+            },
+            // currentPlayList(){
+
+            // }
         }
-            
+        
 		
 	};
 </script>
@@ -93,6 +120,10 @@ import { mapMutations, mapState } from 'vuex';
             /*以下就是旋转360度*/
             transform: rotate(360deg);
         }
+    }
+    .van-overlap{
+        width: 0;
+        height: 0;
     }
 	.musicFooter {
 		width: 100%;
@@ -125,10 +156,13 @@ import { mapMutations, mapState } from 'vuex';
                 width: .6rem;
                 height: .6rem;
                 border-radius: 50%;
-                transform: rotate(720deg);
+                transform: rotate(360deg);
             }
             .circle{
                 animation: circle 6s infinite linear;
+            }
+            .pause{
+                animation-play-state: paused;
             }
         }
         .info{

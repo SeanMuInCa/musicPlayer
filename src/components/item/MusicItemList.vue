@@ -74,12 +74,24 @@ export default ({
 
         }
     },
+    computed:{
+        arName(){
+            console.log(this.state.trackList);
+        }
+    },
     methods:{
         playMusic(index){
             this.updateCurrentList(this.state.trackList)
             this.updateCurrentIndex(index)
+            let str = ''
+            this.state.trackList[index].ar.forEach(element => {
+                str += element.name + ' '
+            });
+            console.log(this.state.trackList,'####');
+            console.log(str,'@@@@');
+            this.updateArName(str)
         },
-        ...mapMutations(['updateCurrentList','updateCurrentIndex'])
+        ...mapMutations(['updateCurrentList','updateCurrentIndex','updateArName'])
     }
     // props:['trackList'],
     

@@ -7,6 +7,7 @@ import getVant from './plugins/index';
 // 2. 引入组件样式
 import 'vant/lib/index.css'
 // import { Swipe, SwipeItem } from 'vant';
+import 'vue3-marquee/dist/style.css'
 let app = createApp(App)
 getVant(app)
 app.use(store).use(router)
