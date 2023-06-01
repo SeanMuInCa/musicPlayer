@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-
+import { getMusicLyric } from "../request/api/musicItem";
 export default createStore({
   state: {
     //给个默认值，防止在未进入歌单前，那里是空着也不好看
@@ -20,9 +20,12 @@ export default createStore({
     ],
     currentIndex: 0,//默认播放下标为第一个
     isPause:true,
-    detailShow:false//是否打开详情页
+    detailShow:false,//是否打开详情页
+    lyricData:{},//歌词
+    currentTime:0,//当前歌曲播放时间
+    duration:0,//歌曲总时长
   },
-  mutations: {
+  mutations: {//修改数据放这里
     updatePlayerStatus(state,value){
       state.isPause = value
     },
@@ -41,8 +44,24 @@ export default createStore({
     },
     updateArName(state,name){
       state.arName = name
+    },
+    updateLyricData(state,data){
+      state.lyricData = data
+    },
+    updateCurrentTime(state, time){
+      state.currentTime = time
+      // console.log(state.currentTime);
+    },
+    updateDuration(state, duration){
+      state.duration = duration
     }
   },
-  actions: {},
+  actions: {
+    async getLyric(context, value){
+      let lyric = await getMusicLyric(value)
+      // console.log(lyric.data.lrc);
+      context.commit('updateLyricData',lyric.data.lrc)
+    }
+  },
   modules: {},
 });

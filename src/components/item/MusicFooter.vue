@@ -2,7 +2,7 @@
 	<div class="musicFooter">
 
         <van-popup v-model:show="detailShow" :style="{ width:'100%',height:'100%' }" position="bottom" >
-        <MusicDetail></MusicDetail>
+        <MusicDetail :playMusic="playMusic" :isPause="isPause" :player="this.$refs"></MusicDetail>
         </van-popup>
         
         
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { ref,onMounted, getCurrentInstance } from 'vue';
+import { ref,onMounted, getCurrentInstance,reactive,toRef } from 'vue';
 import { mapMutations, mapState } from 'vuex';
 import MusicDetail from './MusicDetail.vue'
 	// import { inject } from 'vue'
@@ -50,14 +50,17 @@ import MusicDetail from './MusicDetail.vue'
             // onMounted(() => {
             //     console.log(player);
             // })
+            // let player = reactive({})
+            let interVal =0
             const show = ref(false);
-    const showPopup = () => {
-      show.value = true;
-    };
-    return {
-      show,
-      showPopup,
-    };
+        const showPopup = () => {
+            show.value = true;
+        };
+        return {
+            show,
+            showPopup,interVal
+            // player
+        };
             const onClickOverlay = () => {
                 console.log(1);
                 
@@ -73,19 +76,35 @@ import MusicDetail from './MusicDetail.vue'
                     this.$refs.player.play()
                     this.$refs.img.className = 'circle'
                     this.updatePlayerStatus(false)
+                    this.updateTime()
                 }
                 else{
                     this.$refs.player.pause()
                     this.updatePlayerStatus(true)
                     this.$refs.img.className = 'pause'
+                    clearInterval(this.interVal)
                 }
                 // this.isPlay = true
             },
-            
-            ...mapMutations(['updatePlayerStatus','updateDetailShow'])
+            addDuration(){
+                this.updateDuration(this.$refs.player.duration)
+            },
+            updateTime(){
+                console.log(this.$refs.player.currentTime);
+                this.interVal = setInterval(() => {
+                    this.updateCurrentTime(this.$refs.player.currentTime)
+                },1000)
+            },
+            ...mapMutations(['updatePlayerStatus','updateDetailShow','updateCurrentTime','updateDuration'])
         },
         mounted() {
             console.log(this.$refs);
+            // this.player = toRef(this.$refs.player)
+            // console.log(this.player);
+            this.$store.dispatch('getLyric',this.currentPlayList[this.currentIndex].id)
+        },
+        updated(){
+            this.$store.dispatch('getLyric',this.currentPlayList[this.currentIndex].id)
         },
 			// let state = inject('state')
         computed:{
