@@ -2,7 +2,11 @@
     <div >
         <MusicItemTop :playList="state.playList" ></MusicItemTop>
         <MusicItemList v-if="isLoaded"></MusicItemList>
+<<<<<<< HEAD
         <!-- {{ subscribedCount }} -->
+=======
+        {{ subscribedCount }}
+>>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
     </div>
 </template>
 

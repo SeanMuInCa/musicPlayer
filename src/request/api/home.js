@@ -11,6 +11,10 @@ export function getBanner(){
 export function getMusicList(){
     return axiosService({
         method: 'GET',
+<<<<<<< HEAD
         url: '/personalized?limit=20',
+=======
+        url: '/personalized?limit=10',
+>>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
     })
 }

@@ -69,7 +69,11 @@
 <style lang="less" scoped>
     .musicList{
         width: 100%;
+<<<<<<< HEAD
         height: 100%;
+=======
+        height: 5rem;
+>>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
         display: flex;
         // justify-content: space-between;
         flex-direction: column;
