@@ -29,6 +29,10 @@ export default createStore({
     updatePlayerStatus(state,value){
       state.isPause = value
     },
+    pushPlayList(state, value){
+      state.currentPlayList.push(value)
+      console.log(this.state.currentPlayList);
+    },
     updateCurrentList(state, value){
       state.currentPlayList = value
       // state.currentIndex = index

@@ -6,3 +6,17 @@ export function getSearchDefaultWord(){
         url: `/search/default`,
     })
 }
+//热门搜索词
+export function getSearchList(){
+    return axiosService({
+        method: 'GET',
+        url: `/search/hot`,
+    })
+}
+//搜索歌曲
+export function getSongList(keyword){
+    return axiosService({
+        method: 'GET',
+        url: `/cloudsearch?keywords=${keyword}`,
+    })
+}
