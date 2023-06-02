@@ -23,11 +23,7 @@
             })
             return {keyWord}
         },
-        watch:{
-            keyWord(){
-                console.log(this.keyWord);
-            }
-        }
+        
     }
 </script>
 <style lang="less" scoped>
