@@ -257,6 +257,8 @@ export default {
     }
 
     .top {
+        // margin-top: 10px;
+        // padding-top: .2rem;
         width: 100%;
         height: 5%;
         display: flex;
@@ -414,7 +416,7 @@ export default {
             justify-content: center;
             align-items: center;
             position: relative;
-            bottom: .4rem;
+            bottom: .2rem;
 
             .icon {
                 width: .8rem;

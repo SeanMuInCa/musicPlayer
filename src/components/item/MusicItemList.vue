@@ -20,11 +20,7 @@
                 <li v-for="(m,index) in state.trackList" :key="m">
                     <div class="li">
                         <div class="index">{{index+1}}</div> 
-<<<<<<< HEAD
                         <div class="center" @click="playMusic(index)">
-=======
-                        <div class="center">
->>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
                             <div class="name">{{ m.name }}</div> 
                             <div class="ar">
                                 <!-- 限制了长度，不然名字太长了 -->
@@ -33,11 +29,7 @@
                         </div> 
                         <div class="play" v-if="m.mv">
                             <svg class="icon" aria-hidden="true">
-<<<<<<< HEAD
                                 <use xlink:href="#icon-shipinbofang"></use>
-=======
-                                <use xlink:href="#icon-play"></use>
->>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
                             </svg>
                         </div>
                         <div class="menu">
@@ -49,20 +41,11 @@
                 </li>
             </ol>
         </div>
-<<<<<<< HEAD
     </div>
 </template>
 <script>
 import {inject, onMounted,computed} from 'vue'
 import { mapMutations, useStore} from 'vuex'
-=======
-        
-        
-    </div>
-</template>
-<script>
-import {inject, onMounted} from 'vue'
->>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
 export default ({
     name:'MusicItemList',
     setup(props) {
@@ -78,22 +61,12 @@ export default ({
         // let trackList = state.trackList
         // console.log(trackList,'!@!');
         onMounted(() => {
-<<<<<<< HEAD
-            console.log('list start');
-            console.log(state);
-            let data = computed(() => {
-                return useStore().state
-            })
-            console.log(data);
-=======
             let ar = ''
             
->>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
         })
         return {
             state,
             subscribedCount
-<<<<<<< HEAD
 
         }
     },
@@ -116,10 +89,6 @@ export default ({
         },
         ...mapMutations(['updateCurrentList','updateCurrentIndex','updateArName'])
     }
-=======
-        }
-    },
->>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
     // props:['trackList'],
     
 })
@@ -131,10 +100,7 @@ export default ({
     height: 100%;
     background-color: white;
     border-radius: .4rem .4rem 0 0;
-<<<<<<< HEAD
     margin-bottom: 1.2rem;
-=======
->>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
     .top{
         display: flex;
         flex-direction: row;

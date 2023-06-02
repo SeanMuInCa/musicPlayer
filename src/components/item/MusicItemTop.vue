@@ -168,15 +168,12 @@
                 height: 3rem;
                 // border: 1px solid #fff;
                 border-radius: .1rem;
-<<<<<<< HEAD
                 p{
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 2;
                     overflow: hidden;
                 }
-=======
->>>>>>> 7491713f69f2975d6072ae8a0b62410effde65a7
                 
                 img{
                     height: 100%;
