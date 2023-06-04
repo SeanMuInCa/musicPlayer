@@ -14,3 +14,10 @@ export function getMusicList(){
         url: '/personalized?limit=20',
     })
 }
+//获取歌手
+export function getSingersList(){
+    return axiosService({
+        method: 'GET',
+        url: '/top/artists?offset=0&limit=30',
+    })
+}

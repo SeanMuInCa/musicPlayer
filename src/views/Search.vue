@@ -58,9 +58,10 @@ import { getSearchDefaultWord } from '../request/api/search';
 import { getSearchList } from '../request/api/search';
 import { getSongList } from '../request/api/search';
 import { mapMutations, mapState } from 'vuex';
+import { useRoute } from 'vue-router';
 export default {
-    setup(props) {
-
+    setup() {
+        let name = useRoute().query.name
         let searchValue = ref('')
         let keyWord = ref('')
         const state = reactive({
@@ -77,7 +78,8 @@ export default {
             })
 
             state.searchArr = localStorage.getItem('search').split(',')
-            
+            if(name != null || undefined)
+                search(name)
             // console.log(hotWords[0].first);
         })
         // console.log(sear);
@@ -88,6 +90,7 @@ export default {
                 state.searchArr.splice(8, 1)
             }
             if (state.searchArr.indexOf(key) != -1) return
+            if(key === null || undefined) return
             state.searchArr.unshift(key)
             searchValue.value = ''
 
@@ -188,7 +191,7 @@ export default {
             }
 
             li {
-                display: inline;
+                display: inline-block;
                 height: .4rem;
                 margin: .1rem;
                 font-size: .2rem;
@@ -207,7 +210,11 @@ export default {
             // height: 4rem;
             // background-color: #999;
             position: relative;
-
+            line-height: .5rem;
+            span{
+                height: .5rem;
+                line-height: .4rem;
+            }
             .icon {
                 position: absolute;
                 right: 0;
