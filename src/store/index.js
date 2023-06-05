@@ -24,6 +24,9 @@ export default createStore({
     lyricData:{},//歌词
     currentTime:0,//当前歌曲播放时间
     duration:0,//歌曲总时长
+    isLoaded:false,//定义一个是否有歌曲的参数
+    isLogin:false,//定义一个是否登录
+    isFooter:true,//底部播放组件是否显示
   },
   mutations: {//修改数据放这里
     updatePlayerStatus(state,value){
@@ -58,6 +61,9 @@ export default createStore({
     },
     updateDuration(state, duration){
       state.duration = duration
+    },
+    updateLoad(state, value){
+      state.isLoaded = value
     }
   },
   actions: {

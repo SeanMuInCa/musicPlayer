@@ -6,7 +6,7 @@
             </svg>
         </div>
         <div class="nav">
-            <span>我的</span>
+            <span @click="$router.push('/UserInfo')">我的</span>
             <span class="active">发现</span>
             <span>云村</span>
             <span>视频</span>

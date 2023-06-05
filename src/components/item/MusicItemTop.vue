@@ -10,7 +10,7 @@
             </div>
             <div class="menuBarRight">
                 <div search>
-                    <svg class="icon" aria-hidden="true">
+                    <svg class="icon" aria-hidden="true" @click="$router.push('/Search')">
                         <use xlink:href="#icon-sousuo"></use>
                     </svg>
                 </div>

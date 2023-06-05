@@ -12,6 +12,7 @@
     import {onMounted, reactive, ref,provide,toRef,onBeforeMount} from 'vue'
     import MusicItemTop from '../components/item/MusicItemTop.vue'
     import MusicItemList from '../components/item/MusicItemList.vue'
+    import store from '../store/index.js'
     export default {
         name: 'MusicItem',
         
@@ -26,14 +27,29 @@
             onBeforeMount(async () => {
                 let id = useRoute().query.id
                 console.log(id);
-                let data = await getMusicListDetail(id)
-                let dataTrack = await getMusicItemList(id)
-                console.log(data);
-                console.log(dataTrack);
-                state.playList = data.data.playlist
-                state.trackList = dataTrack.data.songs
+                await getMusicListDetail(id).then(
+                    value =>{
+                        state.playList = value.data.playlist
+                    },
+                    reason => {
+                        alert(reason.message)
+                    }
+                )
+                
+                await getMusicItemList(id).then(
+                    value =>{
+                        state.trackList = value.data.songs
+                    },
+                    reason => {
+                        console.log(alert(reason.message));
+                    }
+                )
+                // console.log(data,'@');
+                // console.log(dataTrack,'!');
+                
+                // state.trackList = dataTrack.data.songs
                 // isLoaded = true
-                subscribedCount.value = toRef(data.data.playlist, 'subscribedCount')
+                subscribedCount.value = toRef(state.playList, 'subscribedCount')
                 console.log(state.playList);
                 console.log(subscribedCount,"@@@");
                 //防止页面刷新造成数据丢失，先存起来
@@ -42,7 +58,7 @@
                 
             })
             onMounted(() => {
-                console.log(isLoaded);
+                console.log(store.state.isLoaded,'@');
                 isLoaded.value = true
                 console.log(isLoaded);
 

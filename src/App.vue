@@ -1,13 +1,15 @@
 <template>
   <div>
     <router-view/>
-    <MusicFooter></MusicFooter>
+    <MusicFooter v-show="$store.state.isFooter"></MusicFooter>
   </div>
 </template>
 <script>
+  // import store from './store/index.js'
   import MusicFooter from './components/item/MusicFooter.vue'
   export default{
-    components:{MusicFooter}
+    components:{MusicFooter},
+    
   }
 </script>
 <style lang="less">

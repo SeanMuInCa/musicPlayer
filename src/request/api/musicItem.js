@@ -1,5 +1,8 @@
 //专门处理歌单详情页的axios请求
 import axiosService from '../index'
+import store from '@/router/index'
+
+
 export function getMusicListDetail(id){
     return axiosService({
         method: 'GET',
