@@ -4,6 +4,7 @@
       <SwpierTop></SwpierTop>
       <IconList></IconList>
       <MusicList></MusicList>
+      <Singers></Singers>
     </div>
 </template>
 
@@ -12,10 +13,11 @@
   import SwpierTop from '../components/home/SwpierTop.vue'
   import IconList from '../components/home/IconList.vue'
   import MusicList from '../components/home/MusicList.vue'
+  import Singers from '../components/home/Singers.vue'
   export default {
     name: 'Home',
     components: {
-      TopNav,SwpierTop,IconList,MusicList
+      TopNav,SwpierTop,IconList,MusicList,Singers
     }
   }
 </script>

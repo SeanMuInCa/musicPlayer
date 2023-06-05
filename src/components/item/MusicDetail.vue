@@ -78,18 +78,15 @@
     </div>
 </template>
 <script>
-import { onMounted, reactive, ref } from 'vue';
+import {  reactive, ref } from 'vue';
 import { mapMutations, mapState } from 'vuex';
-import { getMusicLyric } from '../../request/api/musicItem'
+// import { getMusicLyric } from '../../request/api/musicItem'
 export default {
     name: 'MusicDetail',
     setup() {
         let isLyric = ref(false)
         let lyric = reactive({})
-        const onChange = (value) => { 
-            player.player.currentTime = (value/100*player.player.duration)
-            console.log(player.player.currentTime,'-----');
-        }
+        
         const value = ref(0)
         
         return {
@@ -101,7 +98,7 @@ export default {
         lyData() {
             let lycArr = []
             if (this.lyricData) {
-                lycArr = this.lyricData.lyric.split('\n').map((item, index) => {
+                lycArr = this.lyricData.lyric.split('\n').map(item => {
                     let min = item.slice(1, 3)//切割分钟
                     let sec = item.slice(4, 6)
                     let mill = item.slice(7, 10)//毫秒
@@ -152,7 +149,7 @@ export default {
             console.log(str,'@@@@');
             this.updateArName(str)
         },
-        drag(e){
+        drag(){
             this.updateCurrentTime(this.currentTIme)
         },
         touchstart(e) {
