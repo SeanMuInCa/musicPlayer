@@ -183,6 +183,11 @@ export default {
     props: ['playMusic', 'isPause', 'player'],
     watch: {
         currentTime() {
+            
+            if(this.player.player.ended) {
+                console.log(this.player.player.ended);
+                this.goPlay(1)
+            }
             let activeDOM = this.$el.querySelector('.lyc_active')
             // console.log(activeDOM.offsetTop,activeDOM.parentElement.clientHeight);
             // console.log(activeDOM);
@@ -197,9 +202,7 @@ export default {
             // if(activeDOM.offsetTop > this.$refs.lycBox.clientHeight / 2){
             //     this.$refs.lycBox.scrollTop = 200
             // }
-            if(this.player.player.ended) {
-                this.goPlay(1)
-            }
+            
         }
     }
 }
